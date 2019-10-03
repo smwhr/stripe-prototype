@@ -7,3 +7,4 @@ $dotenv->load();
 
 
 $stripe_pkey = getenv('STRIPE_PK');
+$stripe_skey = getenv('STRIPE_SK');
