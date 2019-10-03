@@ -1,0 +1,6 @@
+{
+    "require": {
+        "stripe/stripe-php": "^7.3",
+        "vlucas/phpdotenv": "^3.6"
+    }
+}
