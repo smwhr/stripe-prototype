@@ -20,6 +20,7 @@ require_once("../src/init.php");
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
   crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script>
 var stripe = Stripe("<?php echo $stripe_pkey;?>");
 var elements = stripe.elements();
@@ -34,7 +35,15 @@ $(document).on("click", ".stripe-button", function(){
           if(payment.error){
             console.error(payment.error)
           }else{
-            console.log("OK !")
+            axios.post("/1_prepare.php", {
+                    payment_method: payment.paymentMethod.id
+                })
+              .then(function(){
+                  console.log("préparé !?")
+              })
+              .catch(function(error){
+                  console.error(error)
+              })
           }
         })
         .catch(function(error){
