@@ -2,4 +2,4 @@
 
 require_once("../src/init.php");
 
-// FORMULAIRE DE PAIEMENT
+// EFFECTUE LE PAIEMENT
