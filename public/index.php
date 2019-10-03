@@ -28,11 +28,11 @@ var cardElement = elements.create('card', {style: {}});
     cardElement.mount('#card-element');
 
 $(document).on("click", ".stripe-button", function(){
-  var source = stripe.createSource(cardElement);
-      source
-        .then(function(source){
-          if(source.error){
-            console.error(source.error)
+  var payment = stripe.createPaymentMethod('card',cardElement)
+      payment
+        .then(function(payment){
+          if(payment.error){
+            console.error(payment.error)
           }else{
             console.log("OK !")
           }
