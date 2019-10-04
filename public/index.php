@@ -52,7 +52,20 @@ $(document).on("click", ".stripe-button", function(){
                   })
               })
               .catch(function(error){
-                  console.error(error)
+                  if(error.response.data.intent_status == "requires_source_action"){
+                    console.log("DEMANDER 3D SECURE")
+                    var intent_secret = error.response.data.intent.client_secret;
+                      return stripe.handleCardAction(intent_secret)
+                            .then(function(response){
+                                console.log(response.paymentIntent)
+                                axios.post("/2_pay.php", {
+                                  payment_intent: response.paymentIntent.id
+                                })
+                            })
+                            .catch(function(error){
+
+                            })
+                  }
               })
           }
         })
