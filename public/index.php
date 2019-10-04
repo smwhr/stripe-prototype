@@ -57,13 +57,18 @@ $(document).on("click", ".stripe-button", function(){
                     var intent_secret = error.response.data.intent.client_secret;
                       return stripe.handleCardAction(intent_secret)
                             .then(function(response){
+                              if(response.error){
+                                console.error(response.error)
+                                displayError(response.error.message)
+                              }else{
                                 console.log(response.paymentIntent)
                                 axios.post("/2_pay.php", {
                                   payment_intent: response.paymentIntent.id
                                 })
+                              }
                             })
                             .catch(function(error){
-
+                                console.error(error)
                             })
                   }
               })
